@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Display "Best School" 10 times qith while loop
+
+count = 0
+
+while [ $cont -lt 10 ]
+do
+	echo "Best School"
+	(( count++ ))
+done
