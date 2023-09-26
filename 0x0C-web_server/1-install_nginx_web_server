@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Install nginx web server
+
+
+# Update package lists and install nginx
+apt-get -y update
+apt-get -y install nginx
+
+# Create a simple HTML file with "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+# Check if nginx is running and start it if not
+if ! pgrep -x "nginx" > /dev/null; then
+    /etc/init.d/nginx start
+fi
+
