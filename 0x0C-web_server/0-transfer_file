@@ -15,11 +15,11 @@ usrname="$3"
 ssh_key="$4"
 
 # Transfer the file to the user's home directory on the server
-scp -i "$ssh_key" -o StrictHostKeyChecking=no "$file_path" "$username@$server_ip":~/
+scp -i "$ssh_key" -o StrictHostKeyChecking=no "$file_path" "$username@$ip":~/
 
 # Check if the scp command was successful
 if [ $? -eq 0 ]; then
-    echo "File $file_path transferred successfully to $username@$server_ip:~/"
+    echo "File $file_path transferred successfully to $usrname@$ip:~/"
 else
     echo "Error: File transfer failed."
 fi
