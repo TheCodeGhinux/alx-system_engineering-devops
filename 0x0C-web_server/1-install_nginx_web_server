@@ -2,12 +2,14 @@
 
 # Install nginx web server
 
+# Update the package list
+apt-get update
 
-# Update package lists and install nginx
-apt-get -y update
+# Install Nginx
 apt-get -y install nginx
 
-# Create a simple HTML file with "Hello World!"
-mkdir --parents /var/www/html
-echo 'Hello World' > /var/www/html/index.html
-service nginx restart
+# Create an index.html file with the content "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+# Start Nginx (without using systemctl)
+service nginx start
