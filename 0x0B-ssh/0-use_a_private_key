@@ -4,7 +4,7 @@
 # to your server using the private key
 
 # Set the server hostname/ip address
-server="34.207.156.93"
+server="18.206.197.213"
 
 # Use SSH with username
-ssh -i ~/.ssh/school ubuntu@"$server"
+ssh -i ~/.ssh/school ubuntu@18.206.197.213
