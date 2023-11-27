@@ -3,10 +3,4 @@
 key_name="school"
 passphrase="betty"
 # Create a key with 4096 bits
-ssh-keygen -t rsa -b 4096 -f "$key_name" -N "$passphrase"
-
-# Displays fingerprint
-echo "Generating public/private rsa key pair"
-echo "Your identification has been saved in $key_name"
-echo "Your public key has been saved in ${key_name}.pub"
-ssh-keygen -l -f '$key_name'
+ssh-keygen -b 4096 -N betty -f school
