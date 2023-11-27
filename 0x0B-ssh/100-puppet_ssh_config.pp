@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
-#	practice using Puppet to make changes to our configuration file
-#	Puupet to configure SSH clint
-file_line { 'Turn off passwd auth':
-	path => '/etc/ssh/ssh_config',
-	line => 'PasswordAuthentication no',
-	ensure => present,
+# using Puppet to make changes to our configuration file
+file_line { 'no password':
+  path   => '/etc/ssh/ssh_config',
+  line   => '    PasswordAuthentication no',
+  ensure => present,
 }
-
-file_line { 'Declare identity file':
-	path => '/etc/ssh/ssh_config',
-	line => 'IdentityFile `~/.ssh/school',
-	ensure => present,
+file_line { 'change private key':
+  path   => '/etc/ssh/ssh_config',
+  line   => '    IdentityFile ~/.ssh/school'
+  ensure => present,
 }
