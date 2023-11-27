@@ -1,4 +1,0 @@
-	HashKnownHosts yes
-	GSSAPIAuthentication yes
-	PasswordAuthentication no
-	IdentityFile ~/.ssh/school
