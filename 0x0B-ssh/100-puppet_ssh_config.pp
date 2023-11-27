@@ -6,7 +6,7 @@ file_line { 'Turn off passwd auth':
 	path => '/etc/ssh/ssd_config',
 	line => 'PasswordAuthentication no',
 	ensure => present,
- }
+}
 
 file_line { 'Declare identity file':
 	path => '/etc/ssh/ssh_config',
