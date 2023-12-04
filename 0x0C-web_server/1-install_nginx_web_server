@@ -8,6 +8,8 @@ apt-get update
 apt-get -y install nginx
 
 # Create an index.html file with the content "Hello World!"
+mkdir /var/www/html
+touch /var/www/html/index.html
 echo "Hello World!" > /var/www/html/index.html
 
 # Start Nginx (without using systemctl)
