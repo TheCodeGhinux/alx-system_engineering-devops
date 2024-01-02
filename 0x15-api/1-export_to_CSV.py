@@ -31,7 +31,7 @@ def get_employee_info(employee_id):
             with open(csv_filename, mode='w', newline='',
                       encoding='utf-8') as csv_file:
                 csv_writer = csv.writer(csv_file)
-                csv_writer.writerow(["USER_ID", "USERNAME", 
+                csv_writer.writerow(["USER_ID", "USERNAME",
                                      "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
                 for task in todo_res_data:

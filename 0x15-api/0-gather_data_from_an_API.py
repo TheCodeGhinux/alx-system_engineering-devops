@@ -29,7 +29,7 @@ def get_employee_info(employee_id):
             total_tasks = len(todo_data)
 
             print(f"Employee {employee_name} is done with task
-                  ({num_completed_tasks}/{total_tasks}):")
+                  ({num_completed_tasks}/{total_tasks}): ")
             for task in completed_tasks:
                 print(f"    {task['title']}")
 

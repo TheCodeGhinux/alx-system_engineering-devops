@@ -31,8 +31,9 @@ def get_all_employee(user_id):
                 todos = response_todos.json()
 
                 if response_todos.status_code == 200:
-                    json_data[user_id] = [{"username": username, 
-                                           "task": task['title'], "completed": task
+                    json_data[user_id] = [{"username": username,
+                                           "task": task['title'],
+                                           "completed": task
                                            ['completed']} for task in todos]
                 else:
                     print(f"Failed to fetch TODO list for user {user_id}")

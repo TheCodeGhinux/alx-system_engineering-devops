@@ -28,9 +28,10 @@ def get_employee_info(user_id):
 
             json_filename = f'{user_id}.json'
             with open(json_filename, mode='w', encoding='utf-8') as json_file:
-                json.dump({str(user_id): [{"task": task['title'], 
-                                           "completed": task['completed'], 
-                                           "username": employee_name} for task in 
+                json.dump({str(user_id): [{"task": task['title'],
+                                           "completed": task['completed'],
+                                           "username": employee_name}
+                                          for task in
                                           todo_res_data]}, json_file, indent=2)
 
             print(f"Data exported to {json_filename}")
