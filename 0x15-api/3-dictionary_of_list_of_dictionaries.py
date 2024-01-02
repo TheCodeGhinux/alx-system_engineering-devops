@@ -26,7 +26,7 @@ def get_all_employee(user_id):
                 username = user['name']
 
                 """Fetch TODO list for each user"""
-                response_todos = requests.get(f'{url}/{user_id}/todos')
+                response_todos = requests.get(f'{user_url}/{user_id}/todos')
                 todos = response_todos.json()
 
                 if response_todos.status_code == 200:
