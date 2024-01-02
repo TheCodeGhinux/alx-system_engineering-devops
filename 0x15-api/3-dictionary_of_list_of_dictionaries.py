@@ -6,8 +6,9 @@ Script to export data in the JSON format.
 To get all Employees
 """
 
-import csv, sys, requests
+import requests
 import json
+
 
 def get_all_employee(user_id):
     """Function to export all employee data in the JSON format."""
@@ -30,7 +31,9 @@ def get_all_employee(user_id):
                 todos = response_todos.json()
 
                 if response_todos.status_code == 200:
-                    json_data[user_id] = [{"username": username, "task": task['title'], "completed": task['completed']} for task in todos]
+                    json_data[user_id] = [{"username": username, 
+                                           "task": task['title'], "completed": task
+                                           ['completed']} for task in todos]
                 else:
                     print(f"Failed to fetch TODO list for user {user_id}")
 
@@ -45,6 +48,7 @@ def get_all_employee(user_id):
             print("Failed to fetch user data")
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     get_all_employee()

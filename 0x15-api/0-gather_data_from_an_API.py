@@ -5,6 +5,7 @@ returns information about his/her TODO list progress."""
 import sys
 import requests
 
+
 def get_employee_info(employee_id):
     """Function to display on the standard output the
     employee TODO list progress in this exact format"""
@@ -27,9 +28,8 @@ def get_employee_info(employee_id):
             num_completed_tasks = len(completed_tasks)
             total_tasks = len(todo_data)
 
-            print(f"Employee {employee_name} is done with tasks({num_completed_tasks}/{total_tasks}):")
-            
-            # Display the titles of completed tasks
+            print(f"Employee {employee_name} is done with task
+                  ({num_completed_tasks}/{total_tasks}):")
             for task in completed_tasks:
                 print(f"    {task['title']}")
 
@@ -37,6 +37,7 @@ def get_employee_info(employee_id):
             print(f"Failed to fetch TODO list for employee {employee_id}")
     else:
         print(f"Failed to fetch employee information for ID {employee_id}")
+
 
 if __name__ == "__main__":
     """Check if an employee ID is provided as a command-line argument"""
