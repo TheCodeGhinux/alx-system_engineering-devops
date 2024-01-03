@@ -1,57 +1,15 @@
 #!/usr/bin/python3
-"""Export employee TODO list progress using REST API.
-
-This script retrieves information about a given 
-employee's TODO list progress
-from a REST API and exports the data in JSON format.
-
-Usage:
-    python script.py <employee_id>
-
-Example:
-    python script.py 1
-"""
-
+"""Python script that, using this REST API,
+Returns to-do list information for a given employee ID."""
 import requests
 import sys
 
-
-def get_employee_info(employee_id):
-    """Function to get all employee data in the JSON format."""
-    """URL of the API endpoint"""
-    url = "https://jsonplaceholder.typicode.com"
-    user_url = f'{url}/users/{employee_id}'
-    response = requests.get(user_url)
-
-    if response.status_code == 200:
-        employee_name = response.json().get('name')
-
-        todo_url = f'{url}/todos?userId={employee_id}'
-        todo_response = requests.get(todo_url)
-
-        if todo_response.status_code == 200:
-            todo_data = todo_response.json()
-
-            completed_tasks = [task for task in todo_data if task['completed']]
-            num_completed_tasks = len(completed_tasks)
-            total_tasks = len(todo_data)
-
-            print(f"Employee {employee_name} is done with task
-                  ({num_completed_tasks}/{total_tasks}): ")
-            for task in completed_tasks:
-                print(f"    {task['title']}")
-
-        else:
-            print(f"Failed to fetch TODO list for employee {employee_id}")
-    else:
-        print(f"Failed to fetch employee information for ID {employee_id}")
-
-
 if __name__ == "__main__":
-    """Check if an employee ID is provided as a command-line argument"""
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <employee_id>")
-        sys.exit(1)
+    base_url = "https://jsonplaceholder.typicode.com/"
+    user_url = requests.get(base_url + "users/{}".format(sys.argv[1])).json()
+    todos_url = requests.get(base_url + "todos", params={"userId": sys.argv[1]}).json()
 
-    employee_id = int(sys.argv[1])
-    get_employee_info(employee_id)
+    completed = [t.get("title") for t in todos_url if t.get("completed") is True]
+    print("Employee {} is done with tasks({}/{}):".format(
+        user_url.get("name"), len(completed), len(todos_url)))
+    [print("\t {}".format(c)) for c in completed]
