@@ -6,8 +6,8 @@ Script to export data in the JSON format.
 """
 
 import json
-import sys
 import requests
+import sys
 
 
 def get_employee_info(user_id):
@@ -27,14 +27,16 @@ def get_employee_info(user_id):
             employee_name = user_res_data.get('name')
 
             json_filename = f'{user_id}.json'
+            tasks = [{"task": task['title'],
+                      "completed": task['completed'],
+                      "username": employee_name}
+                     for task in todo_res_data]
+
             with open(json_filename, mode='w', encoding='utf-8') as json_file:
-                json.dump({str(user_id): [{"task": task['title'],
-                                           "completed": task['completed'],
-                                           "username": employee_name}
-                                          for task in
-                                          todo_res_data]}, json_file, indent=2)
+                json.dump({str(user_id): tasks}, json_file, indent=2)
 
             print(f"Data exported to {json_filename}")
+            print(f"Number of tasks found: {len(tasks)}")
         else:
             print(f"Failed to fetch data for employee {user_id}")
     except requests.exceptions.RequestException as e:
