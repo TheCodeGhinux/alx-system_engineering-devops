@@ -10,16 +10,16 @@ import json
 import requests
 
 
-def get_all_employee(user_id):
+def get_all_employees():
     """Function to export all employee data in the JSON format."""
     """URL of the API endpoint"""
     url = "https://jsonplaceholder.typicode.com"
-    user_url = f'{url}/users'
+    users_url = f'{url}/users'
     json_data = {}
 
     try:
-        users_response = requests.get(user_url)
-        users_response_data = requests.get(user_url).json()
+        users_response = requests.get(users_url)
+        users_response_data = users_response.json()
 
         if users_response.status_code == 200:
             for user in users_response_data:
@@ -27,14 +27,14 @@ def get_all_employee(user_id):
                 username = user['name']
 
                 """Fetch TODO list for each user"""
-                response_todos = requests.get(f'{user_url}/{user_id}/todos')
+                todos_url = f'{url}/todos?userId={user_id}'
+                response_todos = requests.get(todos_url)
                 todos = response_todos.json()
 
                 if response_todos.status_code == 200:
                     json_data[user_id] = [{"username": username,
-                                           "task": task['title'],
-                                           "completed": task
-                                           ['completed']} for task in todos]
+                                            "task": task['title'],
+                                            "completed": task['completed']} for task in todos]
                 else:
                     print(f"Failed to fetch TODO list for user {user_id}")
 
@@ -52,4 +52,4 @@ def get_all_employee(user_id):
 
 
 if __name__ == "__main__":
-    get_all_employee()
+    get_all_employees()
