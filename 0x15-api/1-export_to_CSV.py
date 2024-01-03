@@ -5,9 +5,9 @@ returns information about his/her TODO list progress.
 Script to export data in the CSV format.
 """
 
-import sys
-import requests
 import csv
+import requests
+import sys
 
 
 def get_employee_info(employee_id):

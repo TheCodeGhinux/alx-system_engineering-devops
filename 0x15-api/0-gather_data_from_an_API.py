@@ -1,14 +1,20 @@
 #!/usr/bin/python3
 """Script that uses a REST API, for a given employee ID,
-returns information about his/her TODO list progress."""
+    returns information about his/her TODO list progress.
+    
+    The script must display on the standard
+    output the employee TODO list progress
+    in this exact format
+"""
 
-import sys
 import requests
+import sys
 
 
 def get_employee_info(employee_id):
     """Function to display on the standard output the
-    employee TODO list progress in this exact format"""
+        employee TODO list progress in this exact format
+    """
     url = "https://jsonplaceholder.typicode.com"
     user_url = f'{url}/users/{employee_id}'
 

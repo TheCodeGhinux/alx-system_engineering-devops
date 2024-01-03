@@ -5,9 +5,9 @@ returns information about his/her TODO list progress.
 Script to export data in the JSON format.
 """
 
+import json
 import sys
 import requests
-import json
 
 
 def get_employee_info(user_id):

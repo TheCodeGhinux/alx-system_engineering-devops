@@ -6,8 +6,8 @@ Script to export data in the JSON format.
 To get all Employees
 """
 
-import requests
 import json
+import requests
 
 
 def get_all_employee(user_id):
