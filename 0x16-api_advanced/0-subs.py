@@ -28,7 +28,7 @@ def number_of_subscribers(subreddit):
         if e.response.status_code == 404:
             return 0
         else:
-            print(f"Error: {e}")
+            print("Error: {}".format(e))
     except Exception as e:
-        print(f"Exception: {e}")
+        print("Exception: {}".format(e))
         return 0
