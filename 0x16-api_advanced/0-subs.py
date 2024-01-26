@@ -10,25 +10,11 @@ import requests
 
 def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"}
+    headers = {"User-Agent": "advanced.api/1.0 (by /u/codeghinux)"}
 
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an exception for bad responses
-
-        # Check if there is a redirect and follow it
-        if response.is_redirect:
-            redirected_url = response.headers['Location']
-            response = requests.get(redirected_url, headers=headers)
-            response.raise_for_status()
-
-        results = response.json().get("data")
-        return results.get("subscribers")
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 404:
-            return 0
-        else:
-            print("Error: {}".format(e))
-    except Exception as e:
-        print("Exception: {}".format(e))
+    response = requests.get(url, headers=headers,
+                            allow_redirects=False)
+    if response.status_code == 404:
         return 0
+    results = response.json().get("data")
+    return results.get("subscribers")
