@@ -17,21 +17,17 @@ def recurse(subreddit, hot_list=None, after=None):
     try:
         response = requests.get(url, headers=headers,
                                 params=params)
-        if response.status_code == 200:
-            posts_data = response.json()["data"]["children"]
-            titles = [post["data"]["title"]
-                      for post in posts_data]
-            hot_list.extend(titles)
-            after = response.json()["data"].get("after")
-            if after:
-                recurse(subreddit, hot_list, after)
-            else:
-                return hot_list
-        elif response.status_code == 404:
+        if response.status_code == 404:
             return None
-        else:
-            print(f"Error: {response.status_code}")
-            return None
+
+        results = response.json().get("data")
+        after = results.get("after")
+        for c in results.get("children"):
+            hot_list.append(c.get("data").get("title"))
+
+        if after is not None:
+            return recurse(subreddit, hot_list, after)
+        return hot_list
     except Exception as e:
         print(f"Exception: {e}")
         return None
