@@ -25,7 +25,8 @@ def count_words(subreddit, word_list, after=None, counts=None):
                             allow_redirects=False)
 
     if response.status_code != 200:
-        print("Error occurred while fetching data.")
+        print("Error occurred while fetching data. Response code:", response.status_code)
+        print("Response content:", response.text)
         return
 
     data = response.json()
