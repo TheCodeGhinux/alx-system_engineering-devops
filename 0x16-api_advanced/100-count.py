@@ -4,7 +4,10 @@
 import requests
 
 
-def count_words(subreddit, word_list, after=None, counts={}):
+def count_words(subreddit, word_list, after=None, counts=None):
+    if counts is None:
+        counts = {}
+
     if not word_list or word_list == [] or not subreddit:
         return
 
@@ -41,4 +44,4 @@ def count_words(subreddit, word_list, after=None, counts={}):
         sorted_counts = sorted(counts.items(),
                                key=lambda x: (-x[1], x[0].lower()))
         for word, count in sorted_counts:
-            print(f"{word.lower()}: {count}")
+            print("{}: {}".format(word.lower(), count))
