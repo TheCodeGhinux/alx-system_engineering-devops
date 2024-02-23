@@ -1,48 +1,40 @@
-#!/usr/bin/python3
-"""recursive function that queries the Reddit API,
-parses the title of all hot articles, and
-prints a sorted count of given keywords
-(case-insensitive, delimited by spaces.
-"""
-
 import requests
 
 
-def count_words(subreddit, word_list, after=None, counts=None):
-    if counts is None:
-        counts = {}
+def count_words(subreddit, word_list, after=None, counts={}):
+    if not word_list or word_list == [] or not subreddit:
+        return
+
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "YourAppName/1.0"}
-    params = {"after": after} if after else {}
+    headers = {"User-Agent": "mozilla/5.0:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"}
 
-    try:
-        response = requests.get(url, headers=headers,
-                                params=params)
+    params = {"limit": 100}
+    if after:
+        params["after"] = after
 
+    response = requests.get(url,
+                            headers=headers,
+                            params=params,
+                            allow_redirects=False)
 
-        if response.status_code == 200:
-            posts_data = response.json()["data"]["children"]
-            for post in posts_data:
-                title = post["data"]["title"].lower()
-                for word in word_list:
-                    word = word.lower()
-                    if word in title:
-                        counts[word] = counts.get(word,
-                                                  0) + title.count(word)
-            after = response.json()["data"].get("after")
-            if after:
-                count_words(subreddit, word_list, after, counts)
-            else:
-                print_results(counts)
-        elif response.status_code == 404:
-            pass
-        else:
-            print(f"Error: {response.status_code}")
-    except Exception as e:
-        print(f"Exception: {e}")
+    if response.status_code != 200:
+        print("Error occurred while fetching data.")
+        return
 
-def print_results(counts):
-    sorted_counts = sorted(counts.items(),
-                           key=lambda x: (-x[1], x[0]))
-    for word, count in sorted_counts:
-        print(f"{word}: {count}")
+    data = response.json()
+    children = data.get("data", {}).get("children", [])
+
+    for post in children:
+        title = post.get("data", {}).get("title", "").lower()
+        for word in word_list:
+            if word.lower() in title:
+                counts[word] = counts.get(word, 0) + title.count(word.lower())
+
+    after = data.get("data", {}).get("after")
+    if after:
+        count_words(subreddit, word_list, after, counts)
+    else:
+        sorted_counts = sorted(counts.items(),
+                               key=lambda x: (-x[1], x[0].lower()))
+        for word, count in sorted_counts:
+            print(f"{word.lower()}: {count}")
