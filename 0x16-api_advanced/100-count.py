@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# 100 count
+"""ecursive function that queries the Reddit API"""
 
 import requests
 
