@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""ecursive function that queries the Reddit API"""
+"""Recursive function that queries the Reddit API"""
 
 import requests
 
@@ -9,7 +9,8 @@ def count_words(subreddit, word_list, after=None, counts={}):
         return
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "mozilla/5.0:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"}
+    headers = {"User-Agent": "mozilla/5.0:0x16.api.advanced:v1.0.0"
+                             "(by /u/codeghinux)"}
 
     params = {"limit": 100}
     if after:
