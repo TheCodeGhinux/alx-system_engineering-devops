@@ -10,11 +10,14 @@ import requests
 
 def get_token(client_id, secret):
     auth = requests.auth.HTTPBasicAuth(client_id, secret)
-    data = {'grant_type': 'client_credentials'}
-    headers = {'User-Agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)'}
-    url='https://www.reddit.com/api/v1/access_token'
-    res = requests.post(url, auth=auth,
-                        data=data, headers=headers)
+    data = {
+        'grant_type': 'client_credentials'
+    }
+    headers = {
+        'User-Agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)'
+    }
+    res = requests.post('https://www.reddit.com/api/v1/access_token',
+                        auth=auth, data=data, headers=headers)
     token = res.json().get('access_token')
     return token
 
@@ -24,7 +27,8 @@ def number_of_subscribers(subreddit):
     secret = 'kfJcvQDuMcaOFN1y2bbLE82HPDi5Dg'
     token = get_token(client_id, secret)
     if not token:
-        return "OK"
+        print("Error: Unable to get token")
+        return
 
     url = "https://oauth.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
