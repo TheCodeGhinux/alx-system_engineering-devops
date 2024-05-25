@@ -39,9 +39,9 @@ def number_of_subscribers(subreddit):
     response = requests.get(url, headers=headers,
                             allow_redirects=False)
     if response.status_code == 200:
-        return "OK"
+        return "OKsucc"
     else:
-        return "OK"
+        return "OKerr"
 
 
 # Test the function with the subreddit "programming"
