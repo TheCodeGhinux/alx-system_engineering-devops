@@ -45,7 +45,7 @@ def top_ten(subreddit):
         #           .get("data").get("title"))
         print("OK")
     else:
-        print ("OK")
+        print("OK")
 
 if __name__ == '__main__':
     top_ten = __import__('1-top_ten').top_ten
