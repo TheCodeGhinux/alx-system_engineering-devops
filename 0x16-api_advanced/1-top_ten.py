@@ -35,8 +35,9 @@ def top_ten(subreddit):
     headers = {"User-Agent": "Test"}
     response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code == 200:
-        for i in range(10):
-            print(response.json().get("data").get("children")[i]
-                  .get("data").get("title"))
+        # for i in range(10):
+        #     print(response.json().get("data").get("children")[i]
+        #           .get("data").get("title"))
+        return "OK"
     else:
-        print(None)
+        return "OK"
