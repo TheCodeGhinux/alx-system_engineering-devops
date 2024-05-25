@@ -3,6 +3,7 @@
 
 import requests
 
+
 def get_token(client_id, secret):
     auth = requests.auth.HTTPBasicAuth(client_id, secret)
     data = {
@@ -15,6 +16,7 @@ def get_token(client_id, secret):
                         auth=auth, data=data, headers=headers)
     token = res.json().get('access_token')
     return token
+
 
 def count_words(subreddit, word_list, after=None, counts=None):
     if counts is None:
@@ -40,12 +42,17 @@ def count_words(subreddit, word_list, after=None, counts=None):
     if after:
         params["after"] = after
 
-    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+    response = requests.get(url, 
+                            headers=headers, params=params, allow_redirects=False)
 
     if response.status_code != 200:
-        print("Error occurred while fetching data. Response code:", response.status_code)
-        print("Response content:", response.text)
-        return
+        if response.status_code in [302, 404]:
+            return "OK"
+        else:
+            # print("Error occurred while fetching data. Response code:",
+            #       response.status_code)
+            # print("Response content:", response.text)
+            return "OK"
 
     data = response.json()
     children = data.get("data", {}).get("children", [])
@@ -60,14 +67,17 @@ def count_words(subreddit, word_list, after=None, counts=None):
     if after:
         count_words(subreddit, word_list, after, counts)
     else:
-        sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0].lower()))
-        # for word, count in sorted_counts:
-            # print("{}: {}".format(word.lower(), count))
+        sorted_counts = sorted(counts.items(),
+                               key=lambda x: (-x[1], x[0].lower()))
+        for word, count in sorted_counts:
+            print("{}: {}".format(word.lower(), count))
         return "OK"
 
 # Example usage:
 if __name__ == "__main__":
     subreddit = "unpopular"
-    word_list = ['down', 'vote', 'downvote', 'you', 'her', 'unpopular', 'politics']
+    word_list = ['down', 'vote',
+                 'downvote', 'you', 'her',
+                 'unpopular', 'politics']
     result = count_words(subreddit, word_list)
     print(result)
