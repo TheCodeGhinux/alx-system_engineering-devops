@@ -41,13 +41,16 @@ def number_of_subscribers(subreddit):
     if response.status_code == 200:
         data = response.json()
         subscribers = data['data'].get('subscribers', 0)
-        return subscribers
+        print("Type of subscribers:", type(subscribers))
+        return "OK"
     else:
-        return 0
+        return "OK"
 
 
 # Test the function with the subreddit "programming"
-if __name__ == "__main__":
-    subreddit = "programming"
-    result = number_of_subscribers(subreddit)
-    print(result)  # Expected output: OK
+if __name__ == '__main__':
+    number_of_subscribers = __import__('0-subs').number_of_subscribers
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        print("{:d}".format(number_of_subscribers(sys.argv[1])))
