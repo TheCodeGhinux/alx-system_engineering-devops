@@ -7,6 +7,20 @@ of all hot articles for a given subreddit
 import requests
 
 
+def get_token(client_id, secret):
+    auth = requests.auth.HTTPBasicAuth(client_id, secret)
+    data = {
+        'grant_type': 'client_credentials'
+    }
+    headers = {
+        'User-Agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)'
+    }
+    res = requests.post('https://www.reddit.com/api/v1/access_token',
+                        auth=auth, data=data, headers=headers)
+    token = res.json().get('access_token')
+    return token
+
+
 def recurse(subreddit, hot_list=None, after=None):
     if hot_list is None:
         hot_list = []

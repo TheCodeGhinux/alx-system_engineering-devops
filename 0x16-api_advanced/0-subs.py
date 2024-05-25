@@ -8,11 +8,28 @@ is given, the function should return 0.
 import requests
 
 
+def get_token(client_id, secret):
+    auth = requests.auth.HTTPBasicAuth(client_id, secret)
+    data = {
+        'grant_type': 'client_credentials'
+    }
+    headers = {
+        'User-Agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)'
+    }
+    res = requests.post('https://www.reddit.com/api/v1/access_token',
+                        auth=auth, data=data, headers=headers)
+    token = res.json().get('access_token')
+    return token
+
+
 def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    hdrs = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"}
+    headers = {
+        "Authorization": f"bearer {token}",
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"
+    }
 
-    response = requests.get(url, headers=hdrs,
+    response = requests.get(url, headers=headers,
                             allow_redirects=False)
     if response.status_code == 200:
         data = response.json()
