@@ -25,4 +25,4 @@ def number_of_subscribers(subreddit):
 if __name__ == "__main__":
     subreddit = "programming"
     subscribers = number_of_subscribers(subreddit)
-    print(f"The subreddit '{subreddit}' has {subscribers} subscribers.")
+    print("The subreddit has {} subscribers.".format(subscribers))
