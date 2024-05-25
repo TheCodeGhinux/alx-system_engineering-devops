@@ -32,8 +32,12 @@ def top_ten(subreddit):
         return
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {"User-Agent": "Test"}
-    response = requests.get(url, headers=headers, allow_redirects=False)
+    headers = {
+        'User-Agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)'
+    }
+    response = requests.get(url,
+                            headers=headers,
+                            allow_redirects=False)
     if response.status_code == 200:
         # for i in range(10):
         #     print(response.json().get("data").get("children")[i]

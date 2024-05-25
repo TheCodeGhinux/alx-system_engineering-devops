@@ -12,7 +12,9 @@ def get_token(client_id, secret):
     auth = requests.auth.HTTPBasicAuth(client_id, secret)
     data = {'grant_type': 'client_credentials'}
     headers = {'User-Agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)'}
-    res = requests.post('https://www.reddit.com/api/v1/access_token', auth=auth, data=data, headers=headers)
+    url='https://www.reddit.com/api/v1/access_token'
+    res = requests.post(url, auth=auth,
+                        data=data, headers=headers)
     token = res.json().get('access_token')
     return token
 
@@ -24,13 +26,13 @@ def number_of_subscribers(subreddit):
     if not token:
         return "OK"
 
-    url = f"https://oauth.reddit.com/r/{subreddit}/about.json"
+    url = "https://oauth.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
         "Authorization": f"bearer {token}",
         "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"
     }
 
-    response = requests.get(url, headers=headers, 
+    response = requests.get(url, headers=headers,
                             allow_redirects=False)
     if response.status_code == 200:
         return "OK"
