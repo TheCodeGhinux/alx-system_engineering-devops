@@ -23,6 +23,14 @@ def get_token(client_id, secret):
 
 
 def number_of_subscribers(subreddit):
+
+    client_id = 'pX3xF8H_c5UVzcQ8xSrr7Q'
+    secret = 'kfJcvQDuMcaOFN1y2bbLE82HPDi5Dg'
+    token = get_token(client_id, secret)
+    if not token:
+        print("Error: Unable to get token")
+        return
+
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
         "Authorization": f"bearer {token}",

@@ -24,6 +24,13 @@ def get_token(client_id, secret):
 def top_ten(subreddit):
     """Prints the titles of the top 10 hot posts for a given subreddit"""
 
+    client_id = 'pX3xF8H_c5UVzcQ8xSrr7Q'
+    secret = 'kfJcvQDuMcaOFN1y2bbLE82HPDi5Dg'
+    token = get_token(client_id, secret)
+    if not token:
+        print("Error: Unable to get token")
+        return
+
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {"User-Agent": "Test"}
     response = requests.get(url, headers=headers, allow_redirects=False)

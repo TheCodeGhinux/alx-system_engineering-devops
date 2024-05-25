@@ -22,10 +22,21 @@ def get_token(client_id, secret):
 
 
 def recurse(subreddit, hot_list=None, after=None):
+
+    client_id = 'pX3xF8H_c5UVzcQ8xSrr7Q'
+    secret = 'kfJcvQDuMcaOFN1y2bbLE82HPDi5Dg'
+    token = get_token(client_id, secret)
+    if not token:
+        print("Error: Unable to get token")
+        return
+
     if hot_list is None:
         hot_list = []
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "YourAppName/1.0"}
+    headers = {
+        "Authorization": f"bearer {token}",
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/codeghinux)"
+    }
     params = {"after": after} if after else {}
 
     try:
