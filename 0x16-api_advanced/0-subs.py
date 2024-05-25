@@ -20,3 +20,9 @@ def number_of_subscribers(subreddit):
         return subscribers
     else:
         return 0
+    
+# Test the function with the subreddit "programming"
+if __name__ == "__main__":
+    subreddit = "programming"
+    subscribers = number_of_subscribers(subreddit)
+    print(f"The subreddit '{subreddit}' has {subscribers} subscribers.")
